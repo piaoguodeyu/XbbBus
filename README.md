@@ -1,6 +1,7 @@
 # XbbBus
-引用方式
-  Step 1. Add it in your root build.gradle at the end of repositories:
+引用方式:
+
+Step 1. Add it in your root build.gradle at the end of repositories:
   
 	allprojects {
 		repositories {
