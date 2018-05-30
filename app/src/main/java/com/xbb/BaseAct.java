@@ -1,9 +1,11 @@
-package com.xbbbus;
+package com.xbb;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.xbbbus.XbbBus;
 
 /**
  * Created by zhangxiaowei on 18/5/29.
@@ -33,6 +35,5 @@ public class BaseAct extends Activity {
     void toast(String string) {
         content.setText(string);
         Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
-
     }
 }

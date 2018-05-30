@@ -1,10 +1,11 @@
-package com.xbbbus;
+package com.xbb;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+
+import com.xbbbus.XbbMainThreadSubscriber;
+import com.xbbbus.XbbSubscriber;
 
 public class MainActivity extends BaseAct {
 
@@ -25,7 +26,7 @@ public class MainActivity extends BaseAct {
      */
     @XbbMainThreadSubscriber
     void content(String string) {
-        toast("MainActivity.contentCurrentThread " + string);
+        toast("MainActivity.MainThread " + string);
     }
 
     /**
@@ -35,6 +36,6 @@ public class MainActivity extends BaseAct {
      */
     @XbbSubscriber
     void contentCurrentThread(String string) {
-        toast("MainActivity.contentCurrentThread " + string);
+        toast("MainActivity.11111 " + string);
     }
 }

@@ -1,8 +1,11 @@
-package com.xbbbus;
+package com.xbb;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.xbbbus.XbbBus;
+import com.xbbbus.XbbMainThreadSubscriber;
+import com.xbbbus.XbbSubscriber;
 
 public class SecondActivity extends BaseAct {
 
@@ -22,7 +25,13 @@ public class SecondActivity extends BaseAct {
     }
 
     public void toAll(View view) {
-        XbbBus.getDefaut().post("totoMainThread");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                XbbBus.getDefaut().post("childThread");
+            }
+        }).start();
+
     }
 
 
