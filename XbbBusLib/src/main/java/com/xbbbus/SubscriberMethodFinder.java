@@ -27,9 +27,9 @@ class SubscriberMethodFinder {
         List<Method> methodslist = new ArrayList<>();
         Class clazzdata = clazz;
         while (clazzdata != null) {
-            Method[] methods = clazz.getDeclaredMethods();
+            Method[] methods = clazzdata.getDeclaredMethods();
             methodslist.addAll(Arrays.asList(methods));
-            clazzdata = clazz.getSuperclass();
+            clazzdata = clazzdata.getSuperclass();
         }
         for (Method method : methodslist) {
             method.setAccessible(true);
