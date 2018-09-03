@@ -2,12 +2,13 @@ package com.xbbbus;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhangxiaowei on 17/4/26.
+ * Created by zhanågxiaowei on 17/4/26.
  */
 
 class SubscriberMethodFinder {
@@ -23,13 +24,14 @@ class SubscriberMethodFinder {
             return methodList;
         }
         methodList = new ArrayList<>();
-        Method[] methods = clazz.getDeclaredMethods();
-        Method[] methodsParent = clazz.getSuperclass().getDeclaredMethods();
-
-        Method[] methods1 = new Method[methods.length + methodsParent.length];
-        System.arraycopy(methods, 0, methods1, 0, methods.length);
-        System.arraycopy(methodsParent, 0, methods1, methods.length, methodsParent.length);
-        for (Method method : methods1) {
+        List<Method> methodslist = new ArrayList<>();
+        Class clazzdata = clazz;
+        while (clazzdata != null) {
+            Method[] methods = clazz.getDeclaredMethods();
+            methodslist.addAll(Arrays.asList(methods));
+            clazzdata = clazz.getSuperclass();
+        }
+        for (Method method : methodslist) {
             method.setAccessible(true);
             Class[] methPt = method.getParameterTypes();
             if (methPt != null && methPt.length == 1) {
