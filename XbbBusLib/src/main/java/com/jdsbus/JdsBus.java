@@ -43,14 +43,11 @@ public class JdsBus {
             subscriptions = new CopyOnWriteArrayList<>();
         }
         List<SubscriberMethod> subscriberMethods = mMethodFinder.getMitakeMethod(clazz);
-        if (!subscriberMethods.isEmpty()) {
-            for (SubscriberMethod method : subscriberMethods) {
-                Subscription subscription = new Subscription(subscriber, method);
-                subscriptions.add(subscription);
-            }
-            mSubscription.put(clazz, subscriptions);
+        for (SubscriberMethod method : subscriberMethods) {
+            Subscription subscription = new Subscription(subscriber, method);
+            subscriptions.add(subscription);
         }
-
+        mSubscription.put(clazz, subscriptions);
     }
 
     /**
