@@ -1,4 +1,4 @@
-package com.xbbbus;
+package com.jdsbus;
 
 import android.os.Looper;
 import android.os.Message;
@@ -12,25 +12,25 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Created by zhangxiaowei on 17/4/25.
  */
 
-public class XbbBus {
+public class JdsBus {
 
-    private static volatile XbbBus mMitakeBus;
+    private static volatile JdsBus mMitakeBus;
     SubscriberMethodFinder mMethodFinder;
     ConcurrentHashMap<Class<?>, CopyOnWriteArrayList<Subscription>> mSubscription;
     HandlerUtil mHandler;
 
-    public static XbbBus getDefaut() {
+    public static JdsBus getDefaut() {
         if (mMitakeBus == null) {
-            synchronized (XbbBus.class) {
+            synchronized (JdsBus.class) {
                 if (mMitakeBus == null) {
-                    mMitakeBus = new XbbBus();
+                    mMitakeBus = new JdsBus();
                 }
             }
         }
         return mMitakeBus;
     }
 
-    private XbbBus() {
+    private JdsBus() {
         mMethodFinder = new SubscriberMethodFinder();
         mSubscription = new ConcurrentHashMap<>();
         mHandler = new HandlerUtil(Looper.getMainLooper());

@@ -1,4 +1,4 @@
-package com.xbbbus;
+package com.jdsbus;
 
 import android.os.Handler;
 import android.os.Looper;

@@ -1,4 +1,4 @@
-package com.xbbbus;
+package com.jdsbus;
 
 import java.lang.reflect.Method;
 

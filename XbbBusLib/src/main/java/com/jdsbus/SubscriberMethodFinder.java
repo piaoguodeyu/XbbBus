@@ -1,4 +1,4 @@
-package com.xbbbus;
+package com.jdsbus;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -35,11 +35,11 @@ class SubscriberMethodFinder {
             method.setAccessible(true);
             Class[] methPt = method.getParameterTypes();
             if (methPt != null && methPt.length == 1) {
-                if (method.isAnnotationPresent(XbbSubscriber.class)) {
+                if (method.isAnnotationPresent(JdsSubscriber.class)) {
                     SubscriberMethod subscriberMethod = new SubscriberMethod(method, methPt[0]);
                     subscriberMethod.mainThread = false;
                     methodList.add(subscriberMethod);
-                } else if (method.isAnnotationPresent(XbbMainThreadSubscriber.class)) {
+                } else if (method.isAnnotationPresent(JdsMainThreadSubscriber.class)) {
                     SubscriberMethod subscriberMethod = new SubscriberMethod(method, methPt[0]);
                     subscriberMethod.mainThread = true;
                     methodList.add(subscriberMethod);
@@ -49,7 +49,7 @@ class SubscriberMethodFinder {
         }
 
         if (methodList.isEmpty()) {
-            throw new XbbException("Subscriber " + clazz + " 未找到订阅方法 ");
+            throw new JdsException("Subscriber " + clazz + " 未找到订阅方法 ");
         } else {
             synchronized (clazz) {
                 methodCache.put(clazz.getName(), methodList);

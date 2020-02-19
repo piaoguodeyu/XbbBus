@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xbbbus.XbbBus;
+import com.jdsbus.JdsBus;
 
 /**
  * Created by zhangxiaowei on 18/5/29.
@@ -17,7 +17,7 @@ public class BaseAct extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        XbbBus.getDefaut().register(this);
+        JdsBus.getDefaut().register(this);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class BaseAct extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        XbbBus.getDefaut().unRegister(this);
+        JdsBus.getDefaut().unRegister(this);
     }
 
     void toast(String string) {

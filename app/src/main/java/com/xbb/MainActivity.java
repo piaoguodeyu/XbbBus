@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.xbbbus.XbbMainThreadSubscriber;
-import com.xbbbus.XbbSubscriber;
+import com.jdsbus.JdsMainThreadSubscriber;
+import com.jdsbus.JdsSubscriber;
 
 public class MainActivity extends BaseAct {
 
@@ -24,7 +24,7 @@ public class MainActivity extends BaseAct {
      *
      * @param string
      */
-    @XbbMainThreadSubscriber
+    @JdsMainThreadSubscriber
     void content(String string) {
         toast("MainActivity.MainThread " + string);
     }
@@ -34,7 +34,7 @@ public class MainActivity extends BaseAct {
      *
      * @param string
      */
-    @XbbSubscriber
+    @JdsSubscriber
     void contentCurrentThread(String string) {
         toast("MainActivity.11111 " + string);
     }

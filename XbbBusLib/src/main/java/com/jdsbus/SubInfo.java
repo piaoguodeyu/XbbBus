@@ -1,4 +1,4 @@
-package com.xbbbus;
+package com.jdsbus;
 
 /**
  * Created by zhangxiaowei on 18/4/18.

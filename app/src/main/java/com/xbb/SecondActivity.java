@@ -3,9 +3,9 @@ package com.xbb;
 import android.os.Bundle;
 import android.view.View;
 
-import com.xbbbus.XbbBus;
-import com.xbbbus.XbbMainThreadSubscriber;
-import com.xbbbus.XbbSubscriber;
+import com.jdsbus.JdsBus;
+import com.jdsbus.JdsMainThreadSubscriber;
+import com.jdsbus.JdsSubscriber;
 
 public class SecondActivity extends BaseAct {
 
@@ -16,11 +16,11 @@ public class SecondActivity extends BaseAct {
     }
 
     public void mainAct(View view) {
-        XbbBus.getDefaut().post("tomain", MainActivity.class);
+        JdsBus.getDefaut().post("tomain", MainActivity.class);
     }
 
     public void currentAct(View view) {
-        XbbBus.getDefaut().post("toSecondActivity", SecondActivity.class);
+        JdsBus.getDefaut().post("toSecondActivity", SecondActivity.class);
 
     }
 
@@ -28,7 +28,7 @@ public class SecondActivity extends BaseAct {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                XbbBus.getDefaut().post("childThread");
+                JdsBus.getDefaut().post("childThread");
             }
         }).start();
 
@@ -40,7 +40,7 @@ public class SecondActivity extends BaseAct {
      *
      * @param string
      */
-    @XbbMainThreadSubscriber
+    @JdsMainThreadSubscriber
     void content(String string) {
         toast("SecondActivity.contentCurrentThread " + string);
     }
@@ -50,7 +50,7 @@ public class SecondActivity extends BaseAct {
      *
      * @param string
      */
-    @XbbSubscriber
+    @JdsSubscriber
     void contentCurrentThread(String string) {
         toast("SecondActivity.contentCurrentThread " + string);
     }
