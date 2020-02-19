@@ -20,7 +20,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':XbbBusLib')
+    implementation project(path: ':JdsBusLib')
 //    testImplementation 'junit:junit:4.12'
 //    implementation 'com.github.piaoguodeyu:JdsBus:-SNAPSHOT'
 //    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
