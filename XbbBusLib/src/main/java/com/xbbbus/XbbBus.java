@@ -39,9 +39,11 @@ public class XbbBus {
     public void register(Object subscriber) {
         Class clazz = subscriber.getClass();
         CopyOnWriteArrayList<Subscription> subscriptions = mSubscription.get(clazz);
-        if (subscriptions == null || subscriptions.isEmpty()) {
+        if (subscriptions == null) {
             subscriptions = new CopyOnWriteArrayList<>();
-            List<SubscriberMethod> subscriberMethods = mMethodFinder.getMitakeMethod(clazz);
+        }
+        List<SubscriberMethod> subscriberMethods = mMethodFinder.getMitakeMethod(clazz);
+        if (!subscriberMethods.isEmpty()) {
             for (SubscriberMethod method : subscriberMethods) {
                 Subscription subscription = new Subscription(subscriber, method);
                 subscriptions.add(subscription);
@@ -130,15 +132,18 @@ public class XbbBus {
         CopyOnWriteArrayList<Subscription> list = mSubscription.get(subscriber.getClass());
         if (list != null && !list.isEmpty()) {
             for (Subscription subscription : list) {
-                subscription.subscriber = null;
-                subscription.subscriberMethod.method = null;
-                subscription.subscriberMethod.eventType = null;
-                subscription.subscriberMethod = null;
-                list.remove(subscription);
+                if (subscription.subscriber == subscriber) {
+                    subscription.subscriber = null;
+                    subscription.subscriberMethod.method = null;
+                    subscription.subscriberMethod.eventType = null;
+                    subscription.subscriberMethod = null;
+                    list.remove(subscription);
+                }
             }
-            list.removeAll(list);
-            list = null;
-            mSubscription.remove(subscriber.getClass());
+            if (list.isEmpty()) {
+                mMethodFinder.removeClazzInfo(subscriber.getClass());
+                mSubscription.remove(subscriber.getClass());
+            }
         }
     }
 }

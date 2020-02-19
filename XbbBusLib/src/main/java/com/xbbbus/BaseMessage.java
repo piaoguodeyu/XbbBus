@@ -4,7 +4,7 @@ package com.xbbbus;
  * Created by zhangxiaowei on 17/4/25.
  */
 
-  class BaseMessage {
+class BaseMessage {
     /**
      * 每个事件对应的id
      */

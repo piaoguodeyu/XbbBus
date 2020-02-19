@@ -17,8 +17,8 @@ class SubscriberMethodFinder {
     public List<SubscriberMethod> getMitakeMethod(Class clazz) {
 
         List<SubscriberMethod> methodList;
-        synchronized (methodCache) {
-            methodList = methodCache.get(clazz);
+        synchronized (clazz) {
+            methodList = methodCache.get(clazz.getName());
         }
         if (methodList != null) {
             return methodList;
@@ -51,10 +51,16 @@ class SubscriberMethodFinder {
         if (methodList.isEmpty()) {
             throw new XbbException("Subscriber " + clazz + " 未找到订阅方法 ");
         } else {
-            synchronized (methodCache) {
+            synchronized (clazz) {
                 methodCache.put(clazz.getName(), methodList);
             }
             return methodList;
+        }
+    }
+
+    public void removeClazzInfo(Class clazz) {
+        synchronized (clazz) {
+            methodCache.remove(clazz.getName());
         }
     }
 }

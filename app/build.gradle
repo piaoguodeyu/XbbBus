@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.xbb"
-        minSdkVersion 25
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -20,8 +20,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':XbbBusLib')
 //    testImplementation 'junit:junit:4.12'
-    implementation 'com.github.piaoguodeyu:XbbBus:-SNAPSHOT'
+//    implementation 'com.github.piaoguodeyu:XbbBus:-SNAPSHOT'
 //    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
 //        exclude group: 'com.android.support', module: 'support-annotations'
 //    })
