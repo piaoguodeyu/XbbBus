@@ -7,6 +7,8 @@ import android.view.View;
 import com.jdsbus.JdsMainThreadSubscriber;
 import com.jdsbus.JdsSubscriber;
 
+import java.lang.ref.WeakReference;
+
 public class MainActivity extends BaseAct {
 
     @Override
