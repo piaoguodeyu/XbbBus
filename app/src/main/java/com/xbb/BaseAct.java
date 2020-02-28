@@ -17,7 +17,7 @@ public class BaseAct extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        JdsBus.getDefaut().register(this);
+        JdsBus.getDefaut().register(this);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class BaseAct extends Activity {
 
     @Override
     protected void onDestroy() {
-//        JdsBus.getDefaut().unRegister(this);
+        JdsBus.getDefaut().unRegister(this);
         super.onDestroy();
     }
 

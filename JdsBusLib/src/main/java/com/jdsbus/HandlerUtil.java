@@ -18,7 +18,11 @@ class HandlerUtil extends Handler {
     public void handleMessage(Message msg) {
         try {
             SubInfo info = (SubInfo) msg.obj;
-            info.subscription.subscriberMethod.method.invoke(info.subscription.subscriber, info.data);
+            if (info.subscription.getSubscriber() == null) {
+                JdsBus.getDefaut().removeSub(info.subscription);
+            } else {
+                info.subscription.subscriberMethod.method.invoke(info.subscription.getSubscriber(), info.data);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

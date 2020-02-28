@@ -2,7 +2,6 @@ package com.jdsbus;
 
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 import java.util.List;
 import java.util.Map;
@@ -39,17 +38,19 @@ public class JdsBus {
 
     public void register(Object subscriber) {
         Class clazz = subscriber.getClass();
-        List<SubscriberMethod> subscriberMethods = mMethodFinder.getMitakeMethod(clazz);
-        if (!subscriberMethods.isEmpty()) {
-            CopyOnWriteArrayList<Subscription> subscriptions = mSubscription.get(clazz);
-            if (subscriptions == null) {
-                subscriptions = new CopyOnWriteArrayList<>();
-                mSubscription.put(clazz, subscriptions);
-            }
-            Log.e("subscriptions ",""+subscriptions.toString());
-            for (SubscriberMethod method : subscriberMethods) {
-                Subscription subscription = new Subscription(subscriber, method);
-                subscriptions.add(subscription);
+        synchronized (clazz) {
+            List<SubscriberMethod> subscriberMethods = mMethodFinder.getMitakeMethod(clazz);
+            if (!subscriberMethods.isEmpty()) {
+                CopyOnWriteArrayList<Subscription> subscriptions = mSubscription.get(clazz);
+                if (subscriptions == null) {
+                    subscriptions = new CopyOnWriteArrayList<>();
+                    mSubscription.put(clazz, subscriptions);
+                }
+//                Log.e("subscriptions ", "" + subscriptions.toString());
+                for (SubscriberMethod method : subscriberMethods) {
+                    Subscription subscription = new Subscription(subscriber, method, clazz);
+                    subscriptions.add(subscription);
+                }
             }
         }
     }
@@ -107,13 +108,17 @@ public class JdsBus {
             Class<?> clzz = data.data.getClass();
             if (clzz.isAssignableFrom(subscription.subscriberMethod.eventType)) {
                 try {
+                    if (subscription.getSubscriber() == null) {
+                        removeSub(list, subscription);
+                        continue;
+                    }
                     if (subscription.subscriberMethod.mainThread) {//主线程
                         Message message = new Message();
                         SubInfo subInfo = new SubInfo(data.data, subscription);
                         message.obj = subInfo;
                         mHandler.sendMessage(message);
                     } else {
-                        subscription.subscriberMethod.method.invoke(subscription.subscriber, data.data);
+                        subscription.subscriberMethod.method.invoke(subscription.getSubscriber(), data.data);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -133,24 +138,38 @@ public class JdsBus {
         CopyOnWriteArrayList<Subscription> list = mSubscription.get(subscriber.getClass());
         if (list != null && !list.isEmpty()) {
             for (Subscription subscription : list) {
-                Log.e("unRegisterunRegister ", "subscriber= " + subscriber.toString()
-                        + " subscription.subscriber= " + subscription.subscriber.toString() + " bool= "
-                        + (subscription.subscriber == subscriber));
-                if (subscription.subscriber == subscriber) {
-                    list.remove(subscription);
-                    if (list.isEmpty()) {
-                        subscription.subscriber = null;
-                        subscription.subscriberMethod.method = null;
-                        subscription.subscriberMethod.eventType = null;
-                        subscription.subscriberMethod = null;
-                    }
+//                try {
+//                    Log.e("unRegisterunRegister ", "subscriber= " + subscriber.toString()
+//                            + " subscription.subscriber= " + subscription.getSubscriber().toString() + " bool= "
+//                            + (subscription.getSubscriber() == subscriber) + " size= " + list.size());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+                if (subscription.getSubscriber() == subscriber) {
+                    removeSub(list, subscription);
                 }
             }
-            Log.i("unRegisterunRegister ", "subscriber= " + list.isEmpty());
+//            Log.i("unRegisterunRegister ", "subscriber= " + list.isEmpty() + " mSubscription= "
+//                    + mSubscription.toString() + " size= " + mSubscription.size());
 //            if (list.isEmpty()) {
 //                mMethodFinder.removeClazzInfo(subscriber.getClass());
 //                mSubscription.remove(subscriber.getClass());
 //            }
+        }
+    }
+
+    void removeSub(Subscription subscription) {
+        CopyOnWriteArrayList<Subscription> list = mSubscription.get(subscription.clazz);
+        removeSub(list, subscription);
+    }
+
+    private void removeSub(CopyOnWriteArrayList<Subscription> list, Subscription subscription) {
+        list.remove(subscription);
+        if (list.isEmpty()) {
+            subscription.clearSubscriber();
+            subscription.subscriberMethod.method = null;
+            subscription.subscriberMethod.eventType = null;
+            subscription.subscriberMethod = null;
         }
     }
 }
