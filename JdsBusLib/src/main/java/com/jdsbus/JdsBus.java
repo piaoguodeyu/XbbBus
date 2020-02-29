@@ -14,20 +14,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class JdsBus {
 
-    private static volatile JdsBus mMitakeBus;
+    private static volatile JdsBus mHjdsBus;
     SubscriberMethodFinder mMethodFinder;
     ConcurrentHashMap<Class<?>, CopyOnWriteArrayList<Subscription>> mSubscription;
     HandlerUtil mHandler;
 
     public static JdsBus getDefaut() {
-        if (mMitakeBus == null) {
+        if (mHjdsBus == null) {
             synchronized (JdsBus.class) {
-                if (mMitakeBus == null) {
-                    mMitakeBus = new JdsBus();
+                if (mHjdsBus == null) {
+                    mHjdsBus = new JdsBus();
                 }
             }
         }
-        return mMitakeBus;
+        return mHjdsBus;
     }
 
     private JdsBus() {
@@ -138,23 +138,10 @@ public class JdsBus {
         CopyOnWriteArrayList<Subscription> list = mSubscription.get(subscriber.getClass());
         if (list != null && !list.isEmpty()) {
             for (Subscription subscription : list) {
-//                try {
-//                    Log.e("unRegisterunRegister ", "subscriber= " + subscriber.toString()
-//                            + " subscription.subscriber= " + subscription.getSubscriber().toString() + " bool= "
-//                            + (subscription.getSubscriber() == subscriber) + " size= " + list.size());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
                 if (subscription.getSubscriber() == subscriber) {
                     removeSub(list, subscription);
                 }
             }
-//            Log.i("unRegisterunRegister ", "subscriber= " + list.isEmpty() + " mSubscription= "
-//                    + mSubscription.toString() + " size= " + mSubscription.size());
-//            if (list.isEmpty()) {
-//                mMethodFinder.removeClazzInfo(subscriber.getClass());
-//                mSubscription.remove(subscriber.getClass());
-//            }
         }
     }
 

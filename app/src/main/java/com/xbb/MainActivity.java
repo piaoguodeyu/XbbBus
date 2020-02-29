@@ -2,8 +2,10 @@ package com.xbb;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.jdsbus.JdsBus;
 import com.jdsbus.JdsMainThreadSubscriber;
 import com.jdsbus.JdsSubscriber;
 
@@ -21,6 +23,15 @@ public class MainActivity extends BaseAct {
         startActivity(new Intent(this, SecondActivity.class));
     }
 
+    public void fasongdier(View view) {
+        long time = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++) {
+            JdsBus.getDefaut().post("来了-----");
+        }
+        time = System.currentTimeMillis() - time;
+        Log.e("fasongdierfasongdier", "time= "+time);
+    }
+
     /**
      * 该方法是在主线程执行的
      *
@@ -28,7 +39,7 @@ public class MainActivity extends BaseAct {
      */
     @JdsMainThreadSubscriber
     void content(String string) {
-        toast("MainActivity.MainThread " + string);
+//        toast("MainActivity.MainThread " + string);
     }
 
     /**
@@ -38,6 +49,6 @@ public class MainActivity extends BaseAct {
      */
     @JdsSubscriber
     void contentCurrentThread(String string) {
-        toast("MainActivity.11111 " + string);
+//        toast("MainActivity.11111 " + string);
     }
 }

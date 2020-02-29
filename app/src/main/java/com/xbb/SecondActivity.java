@@ -13,6 +13,9 @@ public class SecondActivity extends BaseAct {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+//        Present present = new Present();
+        JdsBus.getDefaut().register(new Present());
+//        JdsBus.getDefaut().unRegister(present);
     }
 
     public void mainAct(View view) {
