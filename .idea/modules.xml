@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/JdsBus.iml" filepath="$PROJECT_DIR$/JdsBus.iml" group="JdsBus" />
+      <module fileurl="file://$PROJECT_DIR$/JdsBusLib/JdsBus-JdsBusLib.iml" filepath="$PROJECT_DIR$/JdsBusLib/JdsBus-JdsBusLib.iml" group="JdsBus/JdsBusLib" />
+      <module fileurl="file://$PROJECT_DIR$/app/JdsBus-app.iml" filepath="$PROJECT_DIR$/app/JdsBus-app.iml" group="JdsBus/app" />
       <module fileurl="file://$PROJECT_DIR$/JdsBusLib/JdsBusLib.iml" filepath="$PROJECT_DIR$/JdsBusLib/JdsBusLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/XbbBus.iml" filepath="$PROJECT_DIR$/XbbBus.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />

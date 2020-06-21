@@ -1,7 +1,12 @@
 package com.jdsbus;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.os.Looper;
 import android.os.Message;
+
+import com.jdsbus.interfacs.Register;
+import com.jdsbus.lifecycler.JdsBusLifeCycler;
+import com.jdsbus.lifecycler.LifeCyclerObserver;
 
 import java.util.List;
 import java.util.Map;
@@ -36,6 +41,14 @@ public class JdsBus {
         mHandler = new HandlerUtil(Looper.getMainLooper());
     }
 
+    public Register bindLifeCycler(JdsBusLifeCycler lifeCycler, LifecycleOwner lifecycleOwner) {
+        return new LifeCyclerObserver(lifeCycler, lifecycleOwner);
+    }
+
+    public Register bindOnDestroyLifeCycler(LifecycleOwner lifecycleOwner) {
+        return new LifeCyclerObserver(JdsBusLifeCycler.onDestroy, lifecycleOwner);
+    }
+
     public void register(Object subscriber) {
         Class clazz = subscriber.getClass();
         synchronized (clazz) {
@@ -46,7 +59,6 @@ public class JdsBus {
                     subscriptions = new CopyOnWriteArrayList<>();
                     mSubscription.put(clazz, subscriptions);
                 }
-//                Log.e("subscriptions ", "" + subscriptions.toString());
                 for (SubscriberMethod method : subscriberMethods) {
                     Subscription subscription = new Subscription(subscriber, method, clazz);
                     subscriptions.add(subscription);
