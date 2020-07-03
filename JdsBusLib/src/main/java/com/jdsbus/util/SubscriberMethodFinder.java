@@ -1,4 +1,8 @@
-package com.jdsbus;
+package com.jdsbus.util;
+
+import com.jdsbus.JdsException;
+import com.jdsbus.interfacs.JdsMainThreadSubscriber;
+import com.jdsbus.interfacs.JdsSubscriber;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

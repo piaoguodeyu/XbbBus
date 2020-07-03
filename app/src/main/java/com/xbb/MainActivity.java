@@ -6,10 +6,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.jdsbus.JdsBus;
-import com.jdsbus.JdsMainThreadSubscriber;
-import com.jdsbus.JdsSubscriber;
-
-import java.lang.ref.WeakReference;
+import com.jdsbus.interfacs.JdsMainThreadSubscriber;
+import com.jdsbus.interfacs.JdsSubscriber;
+import com.jdsbus.interfacs.Observer;
+import com.jdsbus.interfacs.SchedulerType;
+import com.xbb.bean.Student;
 
 public class MainActivity extends BaseAct {
 
@@ -17,6 +18,26 @@ public class MainActivity extends BaseAct {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        JdsBus.getDefaut().
+//                bindOnDestroyLifeCycler(this)
+//                .register(Student.class)
+//                .observeOn(SchedulerType.main)
+//                .subscriber(new Observer<Student>() {
+//                    @Override
+//                    public void handMessage(Student mesage) {
+//
+//                    }
+//                });
+
+        JdsBus.bindOnDestroyLifeCycler(this)
+                .register(Student.class)
+                .observeOn(SchedulerType.main)
+                .subscriber(new Observer<Student>() {
+                    @Override
+                    public void handMessage(Student mesage) {
+
+                    }
+                });
     }
 
     public void openSecond(View view) {
@@ -29,7 +50,7 @@ public class MainActivity extends BaseAct {
             JdsBus.getDefaut().post("来了-----");
         }
         time = System.currentTimeMillis() - time;
-        Log.e("fasongdierfasongdier", "time= "+time);
+        Log.e("fasongdierfasongdier", "time= " + time);
     }
 
     /**

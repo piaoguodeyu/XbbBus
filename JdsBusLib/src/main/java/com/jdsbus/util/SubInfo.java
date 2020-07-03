@@ -1,4 +1,6 @@
-package com.jdsbus;
+package com.jdsbus.util;
+
+import com.jdsbus.util.Subscription;
 
 /**
  * Created by zhangxiaowei on 18/4/18.

@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jdsbus.JdsBus;
-import com.jdsbus.JdsMainThreadSubscriber;
-import com.jdsbus.JdsSubscriber;
+import com.jdsbus.interfacs.JdsMainThreadSubscriber;
+import com.jdsbus.interfacs.JdsSubscriber;
 
 public class SecondActivity extends BaseAct {
 

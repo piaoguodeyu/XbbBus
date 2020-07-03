@@ -1,8 +1,6 @@
 package com.xbb;
 
-import android.util.Log;
-
-import com.jdsbus.JdsSubscriber;
+import com.jdsbus.interfacs.JdsSubscriber;
 
 /**
  * @author zhangxiaowei 2020-02-29

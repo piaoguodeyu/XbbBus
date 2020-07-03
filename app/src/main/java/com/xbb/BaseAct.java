@@ -2,6 +2,7 @@ package com.xbb;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,7 +12,7 @@ import com.jdsbus.JdsBus;
  * Created by zhangxiaowei on 18/5/29.
  */
 
-public class BaseAct extends Activity {
+public class BaseAct extends AppCompatActivity {
     TextView content;
 
     @Override

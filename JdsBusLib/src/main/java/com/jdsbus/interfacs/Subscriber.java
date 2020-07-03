@@ -3,8 +3,10 @@ package com.jdsbus.interfacs;
 /**
  * @author zhangxiaowei 2020/6/21
  */
-public interface Subscriber<D> {
-    void subscriber(Observer<D> subscriber);
+public interface Subscriber<T> {
 
-    Subscriber<D> observeOn(SchedulerType schedulerType);
+    Subscriber<T> observeOn(SchedulerType schedulerType);
+
+
+    void subscriber(Observer<T> subscriber);
 }

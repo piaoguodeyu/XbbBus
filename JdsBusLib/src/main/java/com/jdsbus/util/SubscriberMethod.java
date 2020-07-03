@@ -1,4 +1,4 @@
-package com.jdsbus;
+package com.jdsbus.util;
 
 import java.lang.reflect.Method;
 

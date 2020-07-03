@@ -1,4 +1,6 @@
-package com.jdsbus;
+package com.jdsbus.util;
+
+import com.jdsbus.util.SubscriberMethod;
 
 import java.lang.ref.WeakReference;
 

@@ -1,4 +1,4 @@
-package com.jdsbus;
+package com.jdsbus.interfacs;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

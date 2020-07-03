@@ -1,4 +1,4 @@
-package com.jdsbus;
+package com.jdsbus.bean;
 
 /**
  * Created by zhangxiaowei on 17/4/25.
