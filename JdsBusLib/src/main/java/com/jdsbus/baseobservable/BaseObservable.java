@@ -62,7 +62,6 @@ public class BaseObservable implements Register, LifeObserver, Subscriber, PostM
     @Override
     public void subscriber(Observer subscriber) {
         mapObservable.put(registerClass, subscriber);
-        JdsBus.getDefaut().
 //        Type genType1 = subscriber.getClass().getGenericSuperclass();
 //        Class templatClazz1 = null;
 //        if (ParameterizedType.class.isInstance(genType1)) {
@@ -138,5 +137,10 @@ public class BaseObservable implements Register, LifeObserver, Subscriber, PostM
 
             }
         }
+    }
+
+    @Override
+    public void post(Object data, Class<?> toReceive) {
+
     }
 }

@@ -4,6 +4,8 @@ import android.os.Looper;
 import android.os.Message;
 
 import com.jdsbus.JdsBus;
+import com.jdsbus.baseobservable.BaseObservable;
+import com.jdsbus.interfacs.PostMessage;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,14 @@ public class ObserverUtil {
     SubscriberMethodFinder mMethodFinder;
     ConcurrentHashMap<Class<?>, CopyOnWriteArrayList<Subscription>> mSubscription;
     HandlerUtil mHandler;
-
+    /**
+     * 缓存订阅
+     */
+    ConcurrentHashMap<Class, Map<BaseObservable, BaseObservable>> subscriberList;
+    /**
+     * 缓存订阅
+     */
+    ConcurrentHashMap<Class, PostMessage> subscriberList;
     private static volatile ObserverUtil mObserverUtil;
 
 
@@ -36,6 +45,7 @@ public class ObserverUtil {
         mMethodFinder = new SubscriberMethodFinder();
         mSubscription = new ConcurrentHashMap<>();
         mHandler = new HandlerUtil(Looper.getMainLooper());
+        subscriberList=new ConcurrentHashMap<>();
     }
 
     void registerObserver(Class clasz, Object object) {
@@ -76,7 +86,6 @@ public class ObserverUtil {
     }
 
 
-
     public void post(Object data, Class<?> clazz) {
         try {
             PostSigleData sigleData = new PostSigleData(data, clazz);
@@ -85,8 +94,6 @@ public class ObserverUtil {
             e.printStackTrace();
         }
     }
-
-
 
 
     /**

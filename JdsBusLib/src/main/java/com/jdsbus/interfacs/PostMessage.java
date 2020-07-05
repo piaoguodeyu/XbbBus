@@ -6,4 +6,6 @@ package com.jdsbus.interfacs;
  */
 public interface PostMessage {
     void post(Object data);
+
+    void post(Object data, Class<?> toReceive);
 }

@@ -12,6 +12,8 @@ import com.jdsbus.interfacs.Observer;
 import com.jdsbus.interfacs.SchedulerType;
 import com.xbb.bean.Student;
 
+import java.util.Map;
+
 public class MainActivity extends BaseAct {
 
     @Override
@@ -28,6 +30,9 @@ public class MainActivity extends BaseAct {
 //
 //                    }
 //                });
+        Map<Class,Map<Object,Object>> subscriber;
+        Map<Class,Map<Object,Object>> postData;
+
 
         JdsBus.bindOnDestroyLifeCycler(this)
                 .register(Student.class)

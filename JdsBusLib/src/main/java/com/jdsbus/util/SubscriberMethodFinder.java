@@ -23,42 +23,41 @@ class SubscriberMethodFinder {
         List<SubscriberMethod> methodList;
         synchronized (clazz) {
             methodList = methodCache.get(clazz.getName());
-        }
-        if (methodList != null) {
-            return methodList;
-        }
-        methodList = new ArrayList<>();
-        List<Method> methodslist = new ArrayList<>();
-        Class clazzdata = clazz;
-        while (clazzdata != null) {
-            Method[] methods = clazzdata.getDeclaredMethods();
-            methodslist.addAll(Arrays.asList(methods));
-            clazzdata = clazzdata.getSuperclass();
-        }
-        for (Method method : methodslist) {
-            method.setAccessible(true);
-            Class[] methPt = method.getParameterTypes();
-            if (methPt != null && methPt.length == 1) {
-                if (method.isAnnotationPresent(JdsSubscriber.class)) {
-                    SubscriberMethod subscriberMethod = new SubscriberMethod(method, methPt[0]);
-                    subscriberMethod.mainThread = false;
-                    methodList.add(subscriberMethod);
-                } else if (method.isAnnotationPresent(JdsMainThreadSubscriber.class)) {
-                    SubscriberMethod subscriberMethod = new SubscriberMethod(method, methPt[0]);
-                    subscriberMethod.mainThread = true;
-                    methodList.add(subscriberMethod);
+            if (methodList != null) {
+                return methodList;
+            }
+            methodList = new ArrayList<>();
+            List<Method> methodslist = new ArrayList<>();
+            Class clazzdata = clazz;
+            while (clazzdata != null) {
+                Method[] methods = clazzdata.getDeclaredMethods();
+                methodslist.addAll(Arrays.asList(methods));
+                clazzdata = clazzdata.getSuperclass();
+            }
+            for (Method method : methodslist) {
+                method.setAccessible(true);
+                Class[] methPt = method.getParameterTypes();
+                if (methPt != null && methPt.length == 1) {
+                    if (method.isAnnotationPresent(JdsSubscriber.class)) {
+                        SubscriberMethod subscriberMethod = new SubscriberMethod(method, methPt[0]);
+                        subscriberMethod.mainThread = false;
+                        methodList.add(subscriberMethod);
+                    } else if (method.isAnnotationPresent(JdsMainThreadSubscriber.class)) {
+                        SubscriberMethod subscriberMethod = new SubscriberMethod(method, methPt[0]);
+                        subscriberMethod.mainThread = true;
+                        methodList.add(subscriberMethod);
+                    }
                 }
-            }
 
-        }
-
-        if (methodList.isEmpty()) {
-            throw new JdsException("Subscriber " + clazz + " 未找到订阅方法 ");
-        } else {
-            synchronized (clazz) {
-                methodCache.put(clazz.getName(), methodList);
             }
-            return methodList;
+            if (methodList.isEmpty()) {
+                throw new JdsException("Subscriber " + clazz + " 未找到订阅方法 ");
+            } else {
+                synchronized (clazz) {
+                    methodCache.put(clazz.getName(), methodList);
+                }
+                return methodList;
+            }
         }
     }
 

@@ -2,6 +2,7 @@ package com.jdsbus;
 
 import android.arch.lifecycle.LifecycleOwner;
 
+import com.jdsbus.interfacs.PostMessage;
 import com.jdsbus.interfacs.Register;
 import com.jdsbus.lifecycler.JdsBusLifeCycler;
 import com.jdsbus.lifecycler.LifeCyclerObserver;
@@ -10,7 +11,7 @@ import com.jdsbus.lifecycler.LifeCyclerObserver;
  * Created by zhangxiaowei on 17/4/25.
  */
 
-public class JdsBus {
+public class JdsBus implements PostMessage {
 
     private static volatile JdsBus mHjdsBus;
 
@@ -47,7 +48,9 @@ public class JdsBus {
      * @param data
      * @param clazz
      */
+    @Override
     public void post(Object data, Class<?> clazz) {
+
     }
 
     /**
@@ -55,6 +58,7 @@ public class JdsBus {
      *
      * @param data
      */
+    @Override
     public void post(Object data) {
         post(data, null);
     }

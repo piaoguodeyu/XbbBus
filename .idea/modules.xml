@@ -6,8 +6,10 @@
       <module fileurl="file://$PROJECT_DIR$/JdsBusLib/JdsBus-JdsBusLib.iml" filepath="$PROJECT_DIR$/JdsBusLib/JdsBus-JdsBusLib.iml" group="JdsBus/JdsBusLib" />
       <module fileurl="file://$PROJECT_DIR$/app/JdsBus-app.iml" filepath="$PROJECT_DIR$/app/JdsBus-app.iml" group="JdsBus/app" />
       <module fileurl="file://$PROJECT_DIR$/JdsBusLib/JdsBusLib.iml" filepath="$PROJECT_DIR$/JdsBusLib/JdsBusLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/XbbBus.iml" filepath="$PROJECT_DIR$/XbbBus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XbbBus.iml" filepath="$PROJECT_DIR$/XbbBus.iml" group="XbbBus" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JdsBusLib/XbbBus-JdsBusLib.iml" filepath="$PROJECT_DIR$/.idea/modules/JdsBusLib/XbbBus-JdsBusLib.iml" group="XbbBus/JdsBusLib" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/project-XbbBus-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/project-XbbBus-app.iml" group="XbbBus/app" />
     </modules>
   </component>
 </project>
